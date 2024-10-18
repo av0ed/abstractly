@@ -1,4 +1,6 @@
 "use client";
+
+import { useState } from "react";
 import Button from "../_components/button";
 import TextInput from "../_components/text-input";
 import Image from "next/image";
@@ -11,12 +13,38 @@ const featureList = [
 ];
 
 export default function NewsletterPage() {
-  const handleSubmit = (
+  const [email, setEmail] = useState("example@mail.com");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let value = event.target.value;
+    setEmail(value);
+  };
+
+  const handleSubmit = async (
     event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     event.preventDefault();
-    console.log("Clicked.");
+    const subscribeUrl = "https://localhost:3001/api/subscribe";
+    try {
+      const response = await fetch(subscribeUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Success:", data);
+    } catch (error) {
+      console.error("Error posting email:", error);
+    }
   };
+
   return (
     <div className="flex flex-col lg:flex-row gap-y-12 md:gap-y-8 lg:gap-x-8">
       <div className="flex flex-col">
@@ -34,6 +62,7 @@ export default function NewsletterPage() {
               type="text"
               label="Email"
               placeholder="Enter your email"
+              onChange={handleChange}
             />
             <p className="text-neutral-600 mt-3 md:order-2">
               We only send you the best articles! No spam.
