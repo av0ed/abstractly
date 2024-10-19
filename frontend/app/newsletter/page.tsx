@@ -20,9 +20,7 @@ export default function NewsletterPage() {
     setEmail(value);
   };
 
-  const handleSubmit = async (
-    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const subscribeUrl = "https://localhost:3001/api/subscribe";
     try {
@@ -57,7 +55,10 @@ export default function NewsletterPage() {
           ))}
         </ul>
         <div className="flex flex-col mt-8 md:mt-12">
-          <form className="flex flex-col md:flex-row items-start md:items-end">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col md:flex-row items-start md:items-end"
+          >
             <TextInput
               type="text"
               label="Email"
@@ -70,6 +71,7 @@ export default function NewsletterPage() {
             <Button
               classes="btn--md btn--primary mt-4 self-stretch md:ml-4 md:self-end md:order-1"
               text="Subscribe"
+              type="submit"
             />
           </form>
         </div>

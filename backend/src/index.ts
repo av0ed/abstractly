@@ -1,12 +1,26 @@
 import express from "express";
+import cors from "cors";
+import fs from "fs";
+import path from "path";
+import https from "https";
 import sequelize from "./config/config";
 
+const PORT = 3001;
 const app = express();
-const port = 3001;
+const options = {
+  key: fs.readFileSync(
+    path.resolve(__dirname, "../certificates/selfsigned.key"),
+  ),
+  cert: fs.readFileSync(
+    path.resolve(__dirname, "../certificates/selfsigned.crt"),
+  ),
+};
+
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (_, res) => {
-  res.send("Hello, world!");
+  res.send("Hello, friend.");
 });
 
 app.post("/api/subscribe", (req, res) => {
@@ -21,8 +35,8 @@ const startServer = async () => {
     await sequelize.sync();
     console.log("Database synced successfully.");
 
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
+    https.createServer(options, app).listen(PORT, () => {
+      console.log(`HTTPS server is running on port https://localhost:${PORT}`);
     });
   } catch (error) {
     console.error("Unable to connect to the database:", error);
