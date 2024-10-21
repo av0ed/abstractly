@@ -31,15 +31,13 @@ export default function NewsletterPage() {
         },
         body: JSON.stringify({ email }),
       });
-
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
-
       const data = await response.json();
-      console.log("Success:", data);
+      console.log("Success! ", data);
     } catch (error) {
-      console.error("Error posting email:", error);
+      console.error("Error: ", error);
     }
   };
 
