@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -9,17 +9,6 @@ const databaseUrl =
 const sequelize = new Sequelize(databaseUrl, {
   host: "localhost",
   dialect: "postgres",
-});
-
-const Subscriber = sequelize.define("Subscriber", {
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
-    },
-  },
 });
 
 export default sequelize;

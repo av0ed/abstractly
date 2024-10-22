@@ -14,9 +14,15 @@ const featureList = [
 
 export default function NewsletterPage() {
   const [email, setEmail] = useState("example@mail.com");
+  const [formMessage, setFormMessage] = useState(
+    "We only send you the best articles! No spam.",
+  );
+  const [hasError, setHasError] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
+    setHasError(false);
+    setFormMessage("We only send you the best articles! No spam.");
     setEmail(value);
   };
 
@@ -32,12 +38,11 @@ export default function NewsletterPage() {
         body: JSON.stringify({ email }),
       });
       if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+        throw new Error(`${response.status} ${response.statusText}`);
       }
-      const data = await response.json();
-      console.log("Success! ", data);
     } catch (error) {
-      console.error("Error: ", error);
+      setHasError(true);
+      setFormMessage("This email is already registered.");
     }
   };
 
@@ -53,24 +58,25 @@ export default function NewsletterPage() {
           ))}
         </ul>
         <div className="flex flex-col mt-8 md:mt-12">
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col md:flex-row items-start md:items-end"
-          >
-            <TextInput
-              type="text"
-              label="Email"
-              placeholder="Enter your email"
-              onChange={handleChange}
-            />
-            <p className="text-neutral-600 mt-3 md:order-2">
-              We only send you the best articles! No spam.
+          <form onSubmit={handleSubmit} className="flex flex-col">
+            <div className="flex flex-col md:flex-row">
+              <TextInput
+                type="email"
+                label="Email"
+                placeholder="Enter your email"
+                onChange={handleChange}
+              />
+              <Button
+                classes="btn--md btn--primary mt-4 self-stretch md:ml-4 md:mt-0 md:self-end"
+                text="Subscribe"
+                type="submit"
+              />
+            </div>
+            <p
+              className={`${hasError ? "text-red-600" : "text-neutral-600"} mt-3`}
+            >
+              {formMessage}
             </p>
-            <Button
-              classes="btn--md btn--primary mt-4 self-stretch md:ml-4 md:self-end md:order-1"
-              text="Subscribe"
-              type="submit"
-            />
           </form>
         </div>
       </div>
