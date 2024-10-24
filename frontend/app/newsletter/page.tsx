@@ -14,15 +14,11 @@ const featureList = [
 
 export default function NewsletterPage() {
   const [email, setEmail] = useState("example@mail.com");
-  const [formMessage, setFormMessage] = useState(
-    "We only send you the best articles! No spam.",
-  );
   const [hasError, setHasError] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
     setHasError(false);
-    setFormMessage("We only send you the best articles! No spam.");
     setEmail(value);
   };
 
@@ -42,7 +38,6 @@ export default function NewsletterPage() {
       }
     } catch (error) {
       setHasError(true);
-      setFormMessage("This email is already registered.");
     }
   };
 
@@ -75,7 +70,7 @@ export default function NewsletterPage() {
             <p
               className={`${hasError ? "text-red-600" : "text-neutral-600"} mt-3`}
             >
-              {formMessage}
+              We only send you the best articles! No spam.
             </p>
           </form>
         </div>
