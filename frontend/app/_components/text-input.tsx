@@ -3,6 +3,7 @@ import { RemixiconComponentType } from "@remixicon/react";
 interface TextInputProps {
   IconLeft?: RemixiconComponentType;
   IconRight?: RemixiconComponentType;
+  ariaLabel?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   hint?: string;
@@ -36,6 +37,7 @@ export default function TextInput({
   IconLeft,
   IconRight,
   onChange,
+  ariaLabel,
   error,
   hint,
   isDisabled,
@@ -52,7 +54,7 @@ export default function TextInput({
   `;
 
   return (
-    <label className={classes.label}>
+    <label aria-label={ariaLabel} className={classes.label}>
       {label}
       <div className={classes.inputWrapper}>
         {IconLeft && (

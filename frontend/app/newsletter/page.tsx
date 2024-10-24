@@ -6,6 +6,11 @@ import TextInput from "../_components/text-input";
 import Image from "next/image";
 import ChecklistItem from "../_components/checklist-item";
 
+// TODO:
+//
+// 1. replace basic text with toast notification component for both success and
+//    failure states for form submissions.
+
 const featureList = [
   "Exclusive access to new abstract images and collections",
   "Unlock special promotions only for subscribers",
@@ -13,18 +18,42 @@ const featureList = [
 ];
 
 export default function NewsletterPage() {
-  const [email, setEmail] = useState("example@mail.com");
+  const [email, setEmail] = useState("");
   const [hasError, setHasError] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
-    setHasError(false);
     setEmail(value);
+    setHasError(false);
+    setMessage("");
+  };
+
+  const validateEmail = () => {
+    // https://mailtrap.io/blog/javascript-email-validation/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isFormatted = emailRegex.test(email);
+
+    if (!email) {
+      setMessage("Email address is required.");
+    } else if (!isFormatted) {
+      setMessage("Email must be formatted properly.");
+    }
+    if (!email || !isFormatted) {
+      setHasError(true);
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const subscribeUrl = "https://localhost:3001/api/subscribe";
+    const isValid = validateEmail();
+
+    if (!isValid) {
+      return;
+    }
     try {
       const response = await fetch(subscribeUrl, {
         method: "POST",
@@ -36,8 +65,20 @@ export default function NewsletterPage() {
       if (!response.ok) {
         throw new Error(`${response.status} ${response.statusText}`);
       }
-    } catch (error) {
-      setHasError(true);
+      if (response.ok) {
+        setHasError(false);
+        setMessage("Subscription successful!");
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error occurred:", error);
+        setHasError(true);
+        setMessage(error.message);
+      } else {
+        console.error("An unknown error occurred.");
+        setHasError(true);
+        setMessage("An unknown error occurred.");
+      }
     }
   };
 
@@ -53,23 +94,32 @@ export default function NewsletterPage() {
           ))}
         </ul>
         <div className="flex flex-col mt-8 md:mt-12">
-          <form onSubmit={handleSubmit} className="flex flex-col">
+          <form onSubmit={handleSubmit} className="flex flex-col" noValidate>
             <div className="flex flex-col md:flex-row">
               <TextInput
+                ariaLabel="email"
                 type="email"
-                label="Email"
+                label=""
                 placeholder="Enter your email"
                 onChange={handleChange}
               />
+              <span
+                className={`${hasError ? "text-red-600 " : "text-green-600"} text-sm mt-1.5 md:hidden`}
+              >
+                {message}
+              </span>
               <Button
                 classes="btn--md btn--primary mt-4 self-stretch md:ml-4 md:mt-0 md:self-end"
                 text="Subscribe"
                 type="submit"
               />
             </div>
-            <p
-              className={`${hasError ? "text-red-600" : "text-neutral-600"} mt-3`}
+            <span
+              className={`${hasError ? "text-red-600 " : "text-green-600"} text-sm mt-1.5 hidden md:block`}
             >
+              {message}
+            </span>
+            <p className="text-neutral-600 mt-4">
               We only send you the best articles! No spam.
             </p>
           </form>
