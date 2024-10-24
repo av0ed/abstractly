@@ -1,0 +1,27 @@
+# Node.js dependencies
+node_modules/
+
+# Build output
+dist/
+
+# TypeScript artifacts
+*.tsbuildinfo
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# NPM cache
+.npm/
+
+# Temporary files
+tmp/
+
+# Certs
+certificates/

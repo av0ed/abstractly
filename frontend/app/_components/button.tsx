@@ -14,6 +14,7 @@ interface ButtonProps {
   iconAlign?: IconAlign;
   isDisabled?: boolean;
   text: string;
+  type?: "submit" | "button" | "reset";
 }
 
 export default function Button({
@@ -24,6 +25,7 @@ export default function Button({
   iconAlign = "right",
   isDisabled,
   text,
+  type,
 }: ButtonProps) {
   const renderLeftIcon = () => {
     if (Icon && (iconAlign === "left" || iconAlign === "surround")) {
@@ -52,11 +54,18 @@ export default function Button({
       className={`${classes} ${isDisabled ? "btn--disabled" : ""}`}
       href={href}
       onClick={onClick}
+      role="button"
     >
       {renderContent()}
     </Link>
   ) : (
-    <button className={classes} disabled={isDisabled} onClick={onClick}>
+    <button
+      className={classes}
+      disabled={isDisabled}
+      onClick={onClick}
+      role="button"
+      type={type}
+    >
       {renderContent()}
     </button>
   );

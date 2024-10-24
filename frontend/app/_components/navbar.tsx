@@ -63,7 +63,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 bg-white pt-4 w-full shadow-md">
+    <header className="sticky z-10 top-0 bg-white pt-4 w-full shadow-md">
       <div className="h-[68px] mx-auto flex flex-row items-center px-4 md:px-8 lg:px-28 lg:gap-x-24 max-w-screen-lg">
         <div className="flex flex-col">
           <Link className="flex flex-row items-center" href="/">

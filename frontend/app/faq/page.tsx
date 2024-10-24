@@ -6,10 +6,7 @@ import TextBanner from "../_components/text-banner";
 const faqs = [
   {
     question: "What types of images are available on your platform?",
-    answer: `Our platform offers a diverse range of abstract images to suit
-various preferences and needs. From vibrant geometric patterns to soothing
-landscapes, we strive to provide a wide selection to cater to different
-tastes.`,
+    answer: `Our platform offers a diverse range of abstract images to suit various preferences and needs. From vibrant geometric patterns to soothing landscapes, we strive to provide a wide selection to cater to different tastes.`,
   },
   {
     question: "How can I access and download images from your platform?",
