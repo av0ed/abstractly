@@ -8,16 +8,16 @@ import { PricingCardProps } from "../../_components/pricing-card";
 export default function PricingTiersPage() {
   const [paymentSchedule, setPaymentSchedule] = useState("Annually");
 
-  const calculateAnnualPrice = (price: number): number => {
-    const MONTHS_PER_YEAR = 12;
-    return Math.ceil(price) * MONTHS_PER_YEAR;
-  };
-
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     const value = event.currentTarget.textContent;
     if (value) setPaymentSchedule(value);
+  };
+
+  const calculateAnnualPrice = (price: number): number => {
+    const MONTHS_PER_YEAR = 12;
+    return Math.ceil(price) * MONTHS_PER_YEAR;
   };
 
   const getPlanPriceBlurb = (price: number): string => {
@@ -30,24 +30,27 @@ export default function PricingTiersPage() {
     }
   };
 
-  // const planPrices = {
-  //   monthly: { basic: 9.99, standard: 19.99, premium: 29.99 },
-  //   annually: { basic: 6.99, standard: 15.99, premium: 25.99 },
-  // };
+  type PlanType = "basic" | "standard" | "premium";
 
-  // const getPlanPrice = (planType: string): number => {
-  //   if (paymentSchedule === "Monthly") {
-  //     return planPrices.monthly[planType];
-  //   }
-  //   return 0;
-  // };
+  const getPlanPrice = (planType: PlanType): number => {
+    if (paymentSchedule === "Monthly") {
+      return planPrices.monthly[planType];
+    } else {
+      return planPrices.annually[planType];
+    }
+  };
+
+  const planPrices = {
+    monthly: { basic: 9.99, standard: 19.99, premium: 29.99 },
+    annually: { basic: 6.99, standard: 15.99, premium: 25.99 },
+  };
 
   const pricingPlans: PricingCardProps[] = [
     {
       planType: "Basic Plan",
       planBlurb: "Access to a curated selection of abstract images",
-      planPrice: 6.99,
-      planPriceBlurb: getPlanPriceBlurb(6.99),
+      planPrice: getPlanPrice("basic"),
+      planPriceBlurb: getPlanPriceBlurb(planPrices.monthly.basic),
       checklistItems: [
         "Standard quality images",
         "Limited to personal use",
@@ -58,8 +61,8 @@ export default function PricingTiersPage() {
       highlighted: true,
       planType: "Standard Plan",
       planBlurb: "Next-level integrations, priced economically",
-      planPrice: 15.99,
-      planPriceBlurb: getPlanPriceBlurb(15.99),
+      planPrice: getPlanPrice("standard"),
+      planPriceBlurb: getPlanPriceBlurb(planPrices.monthly.standard),
       checklistItems: [
         "Expanded library with more diverse abstract images",
         "High-resolution images available",
@@ -71,8 +74,8 @@ export default function PricingTiersPage() {
     {
       planType: "Premium Plan",
       planBlurb: "Experience limitless living for power users",
-      planPrice: 25.99,
-      planPriceBlurb: getPlanPriceBlurb(25.99),
+      planPrice: getPlanPrice("premium"),
+      planPriceBlurb: getPlanPriceBlurb(planPrices.monthly.premium),
       checklistItems: [
         "Full access to the entire image library, including exclusive content",
         "Highest quality images, including premium collections",
@@ -93,10 +96,12 @@ export default function PricingTiersPage() {
       />
       <div className="flex flex-row justify-center gap-x-4 mt-10">
         <Button
+          onClick={handleClick}
           classes={`btn--lg w-[140px] ${paymentSchedule === "Monthly" ? "btn--secondary" : ""}`}
           text="Monthly"
         />
         <Button
+          onClick={handleClick}
           classes={`btn--lg w-[140px] ${paymentSchedule === "Annually" ? "btn--secondary" : ""}`}
           text="Annually"
         />
