@@ -6,7 +6,7 @@ type IconAlign = "left" | "right" | "surround";
 interface ButtonProps {
   Icon?: RemixiconComponentType;
   onClick?: (
-    event?: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => void;
   ariaLabel?: string;
   classes: string;
