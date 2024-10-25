@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Button from "../_components/button";
-import TextInput from "../_components/text-input";
-import Image from "next/image";
 import ChecklistItem from "../_components/checklist-item";
+import Image from "next/image";
+import TextInput from "../_components/text-input";
+import Toast from "../_components/toast";
 
 // TODO:
 //
@@ -19,14 +20,12 @@ const featureList = [
 
 export default function NewsletterPage() {
   const [email, setEmail] = useState("");
-  const [hasError, setHasError] = useState(false);
-  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
     setEmail(value);
-    setHasError(false);
-    setMessage("");
+    setErrorMessage("");
   };
 
   const validateEmail = () => {
@@ -35,12 +34,11 @@ export default function NewsletterPage() {
     const isFormatted = emailRegex.test(email);
 
     if (!email) {
-      setMessage("Email address is required.");
+      setErrorMessage("Email address is required.");
     } else if (!isFormatted) {
-      setMessage("Email must be formatted properly.");
+      setErrorMessage("Please enter a valid email address.");
     }
     if (!email || !isFormatted) {
-      setHasError(true);
       return false;
     }
     return true;
@@ -66,18 +64,15 @@ export default function NewsletterPage() {
         throw new Error(`${response.status} ${response.statusText}`);
       }
       if (response.ok) {
-        setHasError(false);
-        setMessage("Subscription successful!");
+        // TODO: This should result in Toast notification.
+        //setErrorMessage("Subscription successful!");
       }
     } catch (error: unknown) {
+      // TODO: These should result in Toast notifications.
       if (error instanceof Error) {
         console.error("Error occurred:", error);
-        setHasError(true);
-        setMessage(error.message);
       } else {
         console.error("An unknown error occurred.");
-        setHasError(true);
-        setMessage("An unknown error occurred.");
       }
     }
   };
@@ -103,10 +98,8 @@ export default function NewsletterPage() {
                 placeholder="Enter your email"
                 onChange={handleChange}
               />
-              <span
-                className={`${hasError ? "text-red-600 " : "text-green-600"} text-sm mt-1.5 md:hidden`}
-              >
-                {message}
+              <span className={`text-red-600 text-sm mt-1.5 md:hidden`}>
+                {errorMessage}
               </span>
               <Button
                 classes="btn--md btn--primary mt-4 self-stretch md:ml-4 md:mt-0 md:self-end"
@@ -114,10 +107,8 @@ export default function NewsletterPage() {
                 type="submit"
               />
             </div>
-            <span
-              className={`${hasError ? "text-red-600 " : "text-green-600"} text-sm mt-1.5 hidden md:block`}
-            >
-              {message}
+            <span className={`text-red-600 text-sm mt-1.5 hidden md:block`}>
+              {errorMessage}
             </span>
             <p className="text-neutral-600 mt-4">
               We only send you the best articles! No spam.
@@ -133,6 +124,16 @@ export default function NewsletterPage() {
         style={{ objectFit: "cover" }}
         width={0}
       />
+      <div className="w-full min-w-[375px] max-w-max fixed px-4 left-1/2 -translate-x-1/2 top-[110px] md:top-[120px] lg:top-[140px]">
+        <Toast
+          type={errorMessage ? "error" : "success"}
+          text={
+            errorMessage
+              ? "Failed to subscribe. Please ensure your email is correct or try again later."
+              : "Subscription successful! Please check your email to confirm."
+          }
+        />
+      </div>
     </div>
   );
 }
