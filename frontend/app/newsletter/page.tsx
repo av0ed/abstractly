@@ -5,12 +5,7 @@ import Button from "../_components/button";
 import ChecklistItem from "../_components/checklist-item";
 import Image from "next/image";
 import TextInput from "../_components/text-input";
-import Toast from "../_components/toast";
-
-// TODO:
-//
-// 1. replace basic text with toast notification component for both success and
-//    failure states for form submissions.
+import Toast, { ToastType } from "../_components/toast";
 
 const featureList = [
   "Exclusive access to new abstract images and collections",
@@ -19,13 +14,17 @@ const featureList = [
 ];
 
 export default function NewsletterPage() {
+  const TOAST_DURATION = 3500;
   const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showToast, setShowToast] = useState(0);
+  const [toastType, setToastType] = useState<ToastType>("error");
+  const [errorText, setErrorText] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
     setEmail(value);
-    setErrorMessage("");
+    setErrorText("");
+    setShowToast(0);
   };
 
   const validateEmail = () => {
@@ -34,9 +33,9 @@ export default function NewsletterPage() {
     const isFormatted = emailRegex.test(email);
 
     if (!email) {
-      setErrorMessage("Email address is required.");
+      setErrorText("Email address is required.");
     } else if (!isFormatted) {
-      setErrorMessage("Please enter a valid email address.");
+      setErrorText("Please enter a valid email address.");
     }
     if (!email || !isFormatted) {
       return false;
@@ -64,15 +63,16 @@ export default function NewsletterPage() {
         throw new Error(`${response.status} ${response.statusText}`);
       }
       if (response.ok) {
-        // TODO: This should result in Toast notification.
-        //setErrorMessage("Subscription successful!");
+        setShowToast(TOAST_DURATION);
+        setToastType("success");
       }
     } catch (error: unknown) {
-      // TODO: These should result in Toast notifications.
       if (error instanceof Error) {
-        console.error("Error occurred:", error);
+        setShowToast(TOAST_DURATION);
+        setToastType("error");
       } else {
-        console.error("An unknown error occurred.");
+        setShowToast(TOAST_DURATION);
+        setToastType("error");
       }
     }
   };
@@ -98,18 +98,13 @@ export default function NewsletterPage() {
                 placeholder="Enter your email"
                 onChange={handleChange}
               />
-              <span className={`text-red-600 text-sm mt-1.5 md:hidden`}>
-                {errorMessage}
-              </span>
               <Button
-                classes="btn--md btn--primary mt-4 self-stretch md:ml-4 md:mt-0 md:self-end"
+                classes="btn--md btn--primary mt-4 md:ml-4 md:mt-0"
                 text="Subscribe"
                 type="submit"
               />
             </div>
-            <span className={`text-red-600 text-sm mt-1.5 hidden md:block`}>
-              {errorMessage}
-            </span>
+            <span className="text-red-600 text-sm mt-1.5">{errorText}</span>
             <p className="text-neutral-600 mt-4">
               We only send you the best articles! No spam.
             </p>
@@ -124,16 +119,19 @@ export default function NewsletterPage() {
         style={{ objectFit: "cover" }}
         width={0}
       />
-      <div className="w-full min-w-[375px] max-w-max fixed px-4 left-1/2 -translate-x-1/2 top-[110px] md:top-[120px] lg:top-[140px]">
-        <Toast
-          type={errorMessage ? "error" : "success"}
-          text={
-            errorMessage
-              ? "Failed to subscribe. Please ensure your email is correct or try again later."
-              : "Subscription successful! Please check your email to confirm."
-          }
-        />
-      </div>
+      {showToast > 0 && (
+        <div className="w-full min-w-[375px] max-w-max fixed px-4 left-1/2 -translate-x-1/2 top-[110px] md:top-[120px] lg:top-[140px]">
+          <Toast
+            duration={showToast}
+            type={toastType}
+            text={
+              toastType === "error"
+                ? "Failed to subscribe. Please ensure your email is correct or try again later."
+                : "Subscription successful! Please check your email to confirm."
+            }
+          />
+        </div>
+      )}
     </div>
   );
 }
