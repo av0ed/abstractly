@@ -4,10 +4,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const databaseUrl =
-  process.env.DATABASE_URL || "postgres://localhost:5432/mydatabase";
+  process.env.DB_URL || "postgres://localhost:5432/mydatabase";
 
 const sequelize = new Sequelize(databaseUrl, {
-  host: "localhost",
   dialect: "postgres",
 });
 

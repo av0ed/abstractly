@@ -11,8 +11,9 @@ const pages = [
   { id: 0, page: "Home", href: "/" },
   { id: 1, page: "Features", href: "/features/grid" },
   { id: 2, page: "Pricing", href: "/pricing/tiers" },
-  { id: 3, page: "About Us", href: "/team" },
-  { id: 4, page: "Contact", href: "/contact" },
+  { id: 3, page: "Newsletter", href: "/newsletter" },
+  { id: 4, page: "About Us", href: "/team" },
+  { id: 5, page: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {

@@ -26,8 +26,6 @@ router.post(
       await Subscriber.create({ email: data.email });
       res.json(`Subscription success for ${data.email}`);
     } catch (error) {
-      // TODO: this needs to be displayed as an appropriate error on the frontend.
-      // "Email already registered."
       res.status(500).json({ error: "Database error" });
     }
   },
