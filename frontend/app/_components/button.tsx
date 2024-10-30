@@ -13,19 +13,20 @@ interface ButtonProps {
   href?: string;
   iconAlign?: IconAlign;
   isDisabled?: boolean;
-  text: string;
+  text?: string;
   type?: "submit" | "button" | "reset";
 }
 
 export default function Button({
   Icon,
   onClick,
+  ariaLabel,
   classes,
   href,
   iconAlign = "right",
   isDisabled,
   text,
-  type,
+  type = "button",
 }: ButtonProps) {
   const renderLeftIcon = () => {
     if (Icon && (iconAlign === "left" || iconAlign === "surround")) {
@@ -43,7 +44,7 @@ export default function Button({
     return (
       <div className="content-spacer">
         {renderLeftIcon()}
-        <span>{text}</span>
+        {text && <span>{text}</span>}
         {renderRightIcon()}
       </div>
     );
@@ -55,6 +56,7 @@ export default function Button({
       href={href}
       onClick={onClick}
       role="button"
+      aria-label={ariaLabel}
     >
       {renderContent()}
     </Link>
@@ -65,6 +67,7 @@ export default function Button({
       onClick={onClick}
       role="button"
       type={type}
+      aria-label={ariaLabel}
     >
       {renderContent()}
     </button>
