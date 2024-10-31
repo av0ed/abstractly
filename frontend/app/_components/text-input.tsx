@@ -29,8 +29,7 @@ const classes = {
   inputError: "focus:ring-red-200 focus:border-red-600",
   inputFocus: "focus:ring-indigo-200 focus:border-indigo-600",
   inputWrapper: "flex items-center relative",
-  label: `flex flex-col gap-y-1.5 font-medium text-sm text-neutral-700 w-full
-    max-w-[340px]`,
+  label: `flex flex-col gap-y-1.5 font-medium text-sm text-neutral-700 w-full`,
 };
 
 export default function TextInput({
