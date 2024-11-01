@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { validateEmail } from "../_utilities/helpers";
 import { RiBuildingLine, RiPhoneLine, RiMailLine } from "@remixicon/react";
 import Button from "../_components/button";
 import TextArea from "../_components/text-area";
 import TextInput from "../_components/text-input";
+import Toast from "../_components/toast";
 
 const contactInfo = [
   {
@@ -25,6 +27,7 @@ const contactInfo = [
 ];
 
 export default function ContactPage() {
+  const [errorText, setErrorText] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,7 +46,40 @@ export default function ContactPage() {
     setFormData({ ...formData, message: e.target.value });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const CONTACT_URL = "https://localhost:3001/api/contact";
+    const { isValid, errorText } = validateEmail(formData.email);
+
+    if (!isValid) {
+      setErrorText(
+        "Failed to subscribe. Please ensure your email is correct or try again later.",
+      );
+      return false;
+    }
+
+    try {
+      const response = await fetch(CONTACT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData }),
+      });
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+      if (response.ok) {
+        // TODO
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setShowToast(true);
+      } else {
+        setShowToast(true);
+      }
+    }
+  };
 
   return (
     <div className="flex flex-col w-full lg:flex-row lg:gap-x-8">
@@ -68,7 +104,13 @@ export default function ContactPage() {
           </ul>
         </div>
       </div>
-      <form className="flex flex-col items-start self-stretch gap-y-6 rounded-lg border border-neutral-200 shadow-lg bg-white p-4 md:p-8 mt-12 md:mt-16 lg:mt-0 lg:w-1/2">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-start
+      self-stretch gap-y-6 rounded-lg border border-neutral-200 shadow-lg
+      bg-white p-4 md:p-8 mt-12 md:mt-16 lg:mt-0 lg:w-1/2"
+        noValidate
+      >
         <div className="flex flex-col w-full gap-y-6 md:flex-row md:gap-x-8">
           <TextInput
             label="Name"
@@ -94,6 +136,7 @@ export default function ContactPage() {
           text="Submit"
         />
       </form>
+      {errorText && <Toast type="error" text={errorText} />}
     </div>
   );
 }

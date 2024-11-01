@@ -1,15 +1,8 @@
-import { DataTypes } from "sequelize";
 import sequelize from "../config/config";
+import emailField from "../fields/email";
 
 const Subscriber = sequelize.define("subscriber", {
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
-    },
-  },
+  email: emailField,
 });
 
 export default Subscriber;

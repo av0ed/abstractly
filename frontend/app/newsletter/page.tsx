@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { validateEmail } from "../_utilities/helpers";
 import Button from "../_components/button";
 import ChecklistItem from "../_components/checklist-item";
 import Image from "next/image";
@@ -14,45 +15,30 @@ const featureList = [
 ];
 
 export default function NewsletterPage() {
-  const TOAST_DURATION = 3500;
   const [email, setEmail] = useState("");
-  const [showToast, setShowToast] = useState(0);
+  const [showToast, setShowToast] = useState(false);
   const [toastType, setToastType] = useState<ToastType>("error");
   const [errorText, setErrorText] = useState("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let value = event.target.value;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
     setEmail(value);
     setErrorText("");
-    setShowToast(0);
+    setShowToast(true);
   };
 
-  const validateEmail = () => {
-    // https://mailtrap.io/blog/javascript-email-validation/
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isFormatted = emailRegex.test(email);
-
-    if (!email) {
-      setErrorText("Email address is required.");
-    } else if (!isFormatted) {
-      setErrorText("Please enter a valid email address.");
-    }
-    if (!email || !isFormatted) {
-      return false;
-    }
-    return true;
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const subscribeUrl = "https://localhost:3001/api/subscribe";
-    const isValid = validateEmail();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const SUBSCRIBE_URL = "https://localhost:3001/api/subscribe";
+    const { isValid, errorText } = validateEmail(email);
 
     if (!isValid) {
+      setErrorText(errorText);
       return;
     }
+
     try {
-      const response = await fetch(subscribeUrl, {
+      const response = await fetch(SUBSCRIBE_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,15 +49,15 @@ export default function NewsletterPage() {
         throw new Error(`${response.status} ${response.statusText}`);
       }
       if (response.ok) {
-        setShowToast(TOAST_DURATION);
+        setShowToast(true);
         setToastType("success");
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setShowToast(TOAST_DURATION);
+        setShowToast(true);
         setToastType("error");
       } else {
-        setShowToast(TOAST_DURATION);
+        setShowToast(true);
         setToastType("error");
       }
     }
@@ -119,18 +105,15 @@ export default function NewsletterPage() {
         style={{ objectFit: "cover" }}
         width={0}
       />
-      {showToast > 0 && (
-        <div className="w-full min-w-[375px] max-w-max fixed px-4 left-1/2 -translate-x-1/2 top-[110px] md:top-[120px] lg:top-[140px]">
-          <Toast
-            duration={showToast}
-            type={toastType}
-            text={
-              toastType === "error"
-                ? "Failed to subscribe. Please ensure your email is correct or try again later."
-                : "Subscription successful! Please check your email to confirm."
-            }
-          />
-        </div>
+      {showToast && (
+        <Toast
+          type={toastType}
+          text={
+            toastType === "error"
+              ? "Failed to subscribe. Please ensure your email is correct or try again later."
+              : "Subscription successful! Please check your email to confirm."
+          }
+        />
       )}
     </div>
   );

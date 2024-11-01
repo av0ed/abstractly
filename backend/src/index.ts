@@ -5,6 +5,7 @@ import path from "path";
 import https from "https";
 import sequelize from "./config/config";
 import subscriberRoutes from "./routes/subscriber.routes";
+import contactRoutes from "./routes/contact.routes";
 
 const PORT = 3001;
 const app = express();
@@ -12,6 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/api", subscriberRoutes);
+app.use("/api", contactRoutes);
 
 const options = {
   key: fs.readFileSync(
