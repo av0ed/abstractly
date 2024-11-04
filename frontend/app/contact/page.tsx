@@ -74,9 +74,9 @@ export default function ContactPage() {
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setShowToast(true);
+        //setShowToast(true);
       } else {
-        setShowToast(true);
+        //setShowToast(true);
       }
     }
   };
