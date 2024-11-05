@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import profileThumbnail from "../../public/profile-thumbnail.png";
 import ProfileCard from "../_components/profile-card";
 import IconButton from "../_components/icon-button";
 import {
@@ -20,7 +19,7 @@ export default function ProfileCardPage() {
         blurb="I turn coffee into bugs which are fixed by someone else. Certified Stack Overflow and ChatGPT developer."
         contactHref="/"
         imageAlt="Headshot of Sarah Dole"
-        imageSrc={profileThumbnail}
+        imageSrc="/sarah-dole-thumbnail.png"
         name="Sarah Dole"
         role="Front End Engineer @ Microsoft"
       >

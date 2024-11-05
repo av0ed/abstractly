@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import profileThumbnail from "../../public/profile-thumbnail.png";
 import TestimonialCard from "../_components/testimonial-card";
 
 export const metadata: Metadata = {
@@ -14,7 +13,7 @@ export default function TestimonialCardPage() {
         testimonial="I've been searching for high-quality abstract images for my design
         projects, and I'm thrilled to have found this platform. The variety
         and depth of creativity are astounding!"
-        imageSrc={profileThumbnail}
+        imageSrc="/sarah-dole-thumbnail.png"
         imageAlt="Headshot of Sarah Dole"
       />
     </div>
