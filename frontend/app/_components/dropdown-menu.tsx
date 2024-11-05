@@ -30,6 +30,9 @@ export default function DropdownMenu({
     if (e.key === "Enter" || e.key === SPACE) {
       setSelected(id);
     }
+    if (e.key === "Escape") {
+      setOpen(false);
+    }
   };
 
   const handleMenuItemClick = (id: number) => {
@@ -40,9 +43,7 @@ export default function DropdownMenu({
     <div className="flex flex-col gap-y-1 w-full max-w-screen-sm">
       <button
         onClick={() => setOpen(!open)}
-        className="flex justify-start items-center self-stretch gap-x-1 px-3
-        py-2 border border-neutral-200 rounded shadow bg-white
-        focus:outline-none focus:ring-2 focus:ring-indigo-200"
+        className="flex justify-start items-center self-stretch gap-x-1 px-3 py-2 border border-neutral-200 rounded shadow bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200"
         aria-expanded={open}
         aria-controls="dropdown-menu"
       >
@@ -67,9 +68,7 @@ export default function DropdownMenu({
           {menuItems.map(({ id, Icon, text }) => (
             <li
               key={id}
-              className="flex justify-start items-center self-stretch p-2
-              gap-x-3 rounded-lg hover:bg-neutral-50 hover:cursor-pointer
-              focus:outline-none focus:ring-2 focus:ring-indigo-200"
+              className="flex justify-start items-center self-stretch p-2 gap-x-3 rounded-lg hover:bg-neutral-50 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-200"
               onClick={() => handleMenuItemClick(id)}
               onKeyDown={(e) => handleKeyDown(e, id)}
               role="menuitem"
