@@ -25,7 +25,7 @@ export default function DropdownMenu({
   const [selected, setSelected] = useState(-1);
   const iconClasses = "text-neutral-900 h-5 w-5";
 
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLLIElement>, id: number) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>, id: number) => {
     const SPACE = " ";
     if (e.key === "Enter" || e.key === SPACE) {
       setSelected(id);
@@ -43,16 +43,27 @@ export default function DropdownMenu({
         className="flex justify-start items-center self-stretch gap-x-1 px-3
         py-2 border border-neutral-200 rounded shadow bg-white
         focus:outline-none focus:ring-2 focus:ring-indigo-200"
+        aria-expanded={open}
+        aria-controls="dropdown-menu"
       >
         <span className="text-sm font-medium">{menuTitle}</span>
         {open ? (
-          <RiArrowUpSLine className={`${iconClasses} p-0.375 ml-auto`} />
+          <RiArrowUpSLine
+            className={`${iconClasses} p-0.375 ml-auto`}
+            aria-hidden={!open}
+          />
         ) : (
-          <RiArrowDownSLine className={`${iconClasses} p-0.375 ml-auto`} />
+          <RiArrowDownSLine
+            className={`${iconClasses} p-0.375 ml-auto`}
+            aria-hidden={open}
+          />
         )}
       </button>
       {open && (
-        <ul className="flex flex-col p-2 gap-y-2 rounded-lg shadow-lg bg-white">
+        <ul
+          className="flex flex-col p-2 gap-y-2 rounded-lg shadow-lg bg-white"
+          role="menu"
+        >
           {menuItems.map(({ id, Icon, text }) => (
             <li
               key={id}
@@ -60,7 +71,8 @@ export default function DropdownMenu({
               gap-x-3 rounded-lg hover:bg-neutral-50 hover:cursor-pointer
               focus:outline-none focus:ring-2 focus:ring-indigo-200"
               onClick={() => handleMenuItemClick(id)}
-              onKeyUp={(e) => handleKeyUp(e, id)}
+              onKeyDown={(e) => handleKeyDown(e, id)}
+              role="menuitem"
               tabIndex={0}
               value={text.toLowerCase()}
             >
