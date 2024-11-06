@@ -100,7 +100,7 @@ export default function Testimonials() {
         heading="Countless users, countless smiles"
         subheading="Explore our community's journey and discover why satisfaction defines us."
       />
-      <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 mt-12 md:mt-16 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 justify-items-center items-center md:gap-8 mt-12 md:mt-16 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {testimonials.map(({ ...testimonials }) => (
           <TestimonialCard
             key={testimonials.key}

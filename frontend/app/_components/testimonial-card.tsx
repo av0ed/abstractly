@@ -16,7 +16,7 @@ export default function TestimonialCard({
   imageAlt,
 }: TestimonialCardProps) {
   return (
-    <figure className="w-[340px] p-6 border-l border-r border-b border-neutral-200 bg-white flex flex-col rounded-lg shadow shadow-neutral-200 gap-y-4">
+    <figure className="w-full p-6 border-l border-r border-b border-neutral-200 bg-white flex flex-col rounded-lg shadow shadow-neutral-200 gap-y-4">
       <div className="flex flex-row gap-x-4">
         <Image
           alt={imageAlt}
