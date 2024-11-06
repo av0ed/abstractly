@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import TextBanner from "../_components/text-banner";
 import TestimonialCard from "../_components/testimonial-card";
+
+export const metadata: Metadata = {
+  title: "Testimonials | Marketing Site",
+};
 
 const testimonials = [
   {
