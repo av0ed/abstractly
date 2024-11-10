@@ -79,9 +79,10 @@ export default function NewsletterPage() {
             <div className="flex flex-col md:flex-row">
               <TextInput
                 ariaLabel="email"
-                type="email"
                 label=""
+                name="email"
                 placeholder="Enter your email"
+                type="email"
                 onChange={handleChange}
               />
               <Button

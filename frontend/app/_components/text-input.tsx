@@ -7,9 +7,11 @@ interface TextInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   hint?: string;
+  id?: string;
   isDisabled?: boolean;
   isRequired?: boolean;
   label: string;
+  name: string;
   placeholder?: string;
   type: "email" | "password" | "text";
 }
@@ -39,9 +41,11 @@ export default function TextInput({
   ariaLabel,
   error,
   hint,
+  id,
   isDisabled,
   isRequired,
   label,
+  name,
   placeholder,
   type,
 }: TextInputProps) {
@@ -64,6 +68,8 @@ export default function TextInput({
           aria-required={isRequired}
           className={inputClasses}
           disabled={isDisabled}
+          id={id}
+          name={name}
           onChange={onChange}
           placeholder={placeholder}
           required={isRequired}

@@ -114,12 +114,14 @@ export default function ContactPage() {
         <div className="flex flex-col w-full gap-y-6 md:flex-row md:gap-x-8">
           <TextInput
             label="Name"
+            name="name"
             placeholder="Your name"
             type="text"
             onChange={handleNameChange}
           />
           <TextInput
             label="Email"
+            name="email"
             placeholder="example@example.com"
             type="email"
             onChange={handleEmailChange}
@@ -127,6 +129,7 @@ export default function ContactPage() {
         </div>
         <TextArea
           label="Message"
+          name="message"
           placeholder="Write your message"
           onChange={handleMessageChange}
         />

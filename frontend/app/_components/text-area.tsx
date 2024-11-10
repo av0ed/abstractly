@@ -4,9 +4,11 @@ import { useState } from "react";
 interface TextAreaProps {
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   error?: string;
+  id?: string;
   isDisabled?: boolean;
   isRequired?: boolean;
   label: string;
+  name: string;
   placeholder?: string;
   rows?: number;
 }
@@ -28,9 +30,11 @@ const classes = {
 export default function TextArea({
   onChange,
   error,
+  id,
   isDisabled,
   isRequired,
   label,
+  name,
   placeholder,
   rows = 3,
 }: TextAreaProps) {
@@ -77,6 +81,8 @@ export default function TextArea({
         aria-required={isRequired}
         className={inputClasses}
         disabled={isDisabled}
+        id={id}
+        name={name}
         onChange={handleChange}
         placeholder={placeholder}
         required={isRequired}

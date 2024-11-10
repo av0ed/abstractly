@@ -28,7 +28,7 @@ router.post(
         email: data.email,
         message: data.message,
       });
-      res.json(`Subscription success for ${data.email}`);
+      res.json(`Message received from ${data.email}`);
     } catch (error) {
       res.status(500).json({ error: "Database error" });
     }

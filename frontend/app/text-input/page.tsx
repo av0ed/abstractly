@@ -11,6 +11,7 @@ export default function TextInputPage() {
     <div className="flex flex-col gap-y-12 justify-start items-center my-28 px-4">
       <TextInput
         IconRight={RiQuestionLine}
+        name="email1"
         label="Email"
         placeholder="name@email.com"
         type="email"
@@ -18,6 +19,7 @@ export default function TextInputPage() {
       />
       <TextInput
         IconRight={RiQuestionLine}
+        name="email2"
         label="Email"
         placeholder="name@email.com"
         type="email"
@@ -25,6 +27,7 @@ export default function TextInputPage() {
       />
       <TextInput
         IconRight={RiQuestionLine}
+        name="email3"
         label="Email"
         placeholder="name@email.com"
         hint="This is a disabled input."
@@ -34,6 +37,7 @@ export default function TextInputPage() {
       <TextInput
         IconLeft={RiMailLine}
         IconRight={RiQuestionLine}
+        name="email4"
         label="Email"
         placeholder="name@email.com"
         type="email"
