@@ -7,12 +7,14 @@ const ROUTE = "/contact";
 
 router.post(
   ROUTE,
+  body("name").notEmpty(),
   body("email")
     .trim()
     .isEmail()
     .withMessage("Invalid email address.")
     .normalizeEmail()
     .escape(),
+  body("message").notEmpty(),
   async (req, res) => {
     const result = validationResult(req);
 

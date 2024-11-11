@@ -48,10 +48,8 @@ export default function NewsletterPage() {
       if (!response.ok) {
         throw new Error(`${response.status} ${response.statusText}`);
       }
-      if (response.ok) {
-        setShowToast(true);
-        setToastType("success");
-      }
+      setShowToast(true);
+      setToastType("success");
     } catch (error: unknown) {
       if (error instanceof Error) {
         setShowToast(true);

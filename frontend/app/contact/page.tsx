@@ -69,9 +69,7 @@ export default function ContactPage() {
       if (!response.ok) {
         throw new Error(`${response.status} ${response.statusText}`);
       }
-      if (response.ok) {
-        // TODO
-      }
+      //console.log("Submission ok");
     } catch (error: unknown) {
       if (error instanceof Error) {
         //setShowToast(true);
