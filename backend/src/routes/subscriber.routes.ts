@@ -20,7 +20,7 @@ router.post(
       return res.status(400).json({ errors: result.array() });
     }
 
-    const data = matchedData(req);
+    const data = matchedData<{ email: string }>(req);
 
     try {
       await Subscriber.create({ email: data.email });

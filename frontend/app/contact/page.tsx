@@ -28,6 +28,7 @@ const contactInfo = [
 
 export default function ContactPage() {
   const [errorText, setErrorText] = useState("");
+  const [showToast, setShowToast] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,12 +50,15 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const CONTACT_URL = "https://localhost:3001/api/contact";
+    // TODO: Fix errorText
+    // TODO: should create a global "showToast" handler which allows for text, type, and show
     const { isValid, errorText } = validateEmail(formData.email);
 
     if (!isValid) {
       setErrorText(
         "Failed to subscribe. Please ensure your email is correct or try again later.",
       );
+      setShowToast(true);
       return false;
     }
 
@@ -69,12 +73,14 @@ export default function ContactPage() {
       if (!response.ok) {
         throw new Error(`${response.status} ${response.statusText}`);
       }
-      //console.log("Submission ok");
+      console.log("Submission ok");
     } catch (error: unknown) {
       if (error instanceof Error) {
-        //setShowToast(true);
+        setErrorText(errorText);
+        setShowToast(true);
       } else {
-        //setShowToast(true);
+        setErrorText(errorText);
+        setShowToast(true);
       }
     }
   };
@@ -137,7 +143,7 @@ export default function ContactPage() {
           text="Submit"
         />
       </form>
-      {errorText && <Toast type="error" text={errorText} />}
+      {showToast && <Toast type="error" text={errorText} />}
     </div>
   );
 }
