@@ -73,7 +73,7 @@ export default function FaqPage() {
         <Button
           classes="btn--xl btn--primary"
           text="Get in touch"
-          href="/contact-us"
+          href="/contact"
         />
       </div>
     </div>

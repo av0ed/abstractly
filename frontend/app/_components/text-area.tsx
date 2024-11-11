@@ -4,9 +4,11 @@ import { useState } from "react";
 interface TextAreaProps {
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   error?: string;
+  id?: string;
   isDisabled?: boolean;
   isRequired?: boolean;
   label: string;
+  name: string;
   placeholder?: string;
   rows?: number;
 }
@@ -20,8 +22,7 @@ const classes = {
       disabled:placeholder-neutral-400`,
   inputError: "border-red-300 focus:border-red-600 focus:ring-red-200",
   inputFocus: "focus:ring-indigo-200 focus:border-indigo-600",
-  label:
-    "flex flex-col gap-y-1.5 font-medium text-sm text-neutral-700 w-full max-w-[340px]",
+  label: "flex flex-col gap-y-1.5 font-medium text-sm text-neutral-700 w-full",
   message: "self-end text-neutral-500",
   messageError: "self-end text-red-600",
 };
@@ -29,9 +30,11 @@ const classes = {
 export default function TextArea({
   onChange,
   error,
+  id,
   isDisabled,
   isRequired,
   label,
+  name,
   placeholder,
   rows = 3,
 }: TextAreaProps) {
@@ -78,6 +81,8 @@ export default function TextArea({
         aria-required={isRequired}
         className={inputClasses}
         disabled={isDisabled}
+        id={id}
+        name={name}
         onChange={handleChange}
         placeholder={placeholder}
         required={isRequired}

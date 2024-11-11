@@ -28,7 +28,7 @@ const toastClasses: Record<ToastType, Record<string, string>> = {
   },
 };
 
-export default function Toast({ duration = 10000, text, type }: ToastProps) {
+export default function Toast({ duration = 3500, text, type }: ToastProps) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -43,15 +43,19 @@ export default function Toast({ duration = 10000, text, type }: ToastProps) {
     <>
       {isVisible && (
         <div
-          className={`${toastClasses[type].wrapper} flex items-center gap-3 rounded-full pl-1 pr-2.5 py-1`}
+          className="w-full min-w-[375px] max-w-max fixed px-4 left-1/2 -translate-x-1/2 top-[110px] md:top-[120px] lg:top-[140px]"
           role="alert"
         >
           <div
-            className={`${toastClasses[type].text} flex items-center justify-center rounded-full shadow bg-white px-2.5 py-0.5 text-sm font-medium`}
+            className={`${toastClasses[type].wrapper} flex items-center gap-3 rounded-full pl-1 pr-2.5 py-1`}
           >
-            {type.charAt(0).toUpperCase() + type.slice(1)}
+            <div
+              className={`${toastClasses[type].text} flex items-center justify-center rounded-full shadow bg-white px-2.5 py-0.5 text-sm font-medium`}
+            >
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </div>
+            <span className={`${toastClasses[type].text}`}>{text}</span>
           </div>
-          <span className={`${toastClasses[type].text}`}>{text}</span>
         </div>
       )}
     </>

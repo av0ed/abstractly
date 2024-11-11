@@ -6,25 +6,48 @@ import TextInput from "../_components/text-input";
 
 describe("Text Input", () => {
   it("renders the text input with the correct label text", () => {
-    render(<TextInput label="Email" type="email" />);
+    render(<TextInput label="Email" type="email" name="email" />);
     const el = screen.getByLabelText("Email");
     expect(el).toBeInTheDocument();
   });
 
   it("does not render hint text when error and hint are supplied", () => {
-    render(<TextInput label="Email" type="email" hint="hint" error="error" />);
+    render(
+      <TextInput
+        label="Email"
+        type="email"
+        name="email"
+        hint="hint"
+        error="error"
+      />,
+    );
     const el = screen.queryByText("hint");
     expect(el).not.toBeInTheDocument();
   });
 
   it("renders only error text when error and hint are supplied", () => {
-    render(<TextInput label="Email" type="email" hint="hint" error="error" />);
+    render(
+      <TextInput
+        label="Email"
+        type="email"
+        name="email"
+        hint="hint"
+        error="error"
+      />,
+    );
     const el = screen.queryByText("error");
     expect(el).toBeInTheDocument();
   });
 
   it("on focus, applies the correct focus classes", () => {
-    render(<TextInput label="Email" type="email" placeholder="placeholder" />);
+    render(
+      <TextInput
+        label="Email"
+        type="email"
+        name="email"
+        placeholder="placeholder"
+      />,
+    );
     const el = screen.getByPlaceholderText("placeholder");
     el.focus();
     expect(el).toHaveClass("focus:ring-indigo-200 focus:border-indigo-600");
@@ -34,6 +57,7 @@ describe("Text Input", () => {
     render(
       <TextInput
         label="Name"
+        name="name"
         type="text"
         error="error"
         placeholder="placeholder"
@@ -50,6 +74,7 @@ describe("Text Input", () => {
     render(
       <TextInput
         label="Name"
+        name="name"
         type="text"
         error="error"
         placeholder="placeholder"
@@ -62,7 +87,9 @@ describe("Text Input", () => {
   });
 
   it("has no accessibility violations", async () => {
-    const { container } = render(<TextInput label="Email" type="email" />);
+    const { container } = render(
+      <TextInput label="Email" name="name" type="email" />,
+    );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

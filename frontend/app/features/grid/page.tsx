@@ -66,7 +66,7 @@ export default function FeaturesGridPage() {
         heading="Easy access to top quality images"
         subheading="In a world where storytelling constantly evolves, we lead with groundbreaking images designed for your presentation excellence."
       />
-      <div className="grid grid-cols-1 items-start justify-center gap-y-8 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-12 md:mt-16 lg:gap-y-12 lg:gap-x-8">
+      <div className="grid grid-cols-1 items-start justify-items-center gap-y-8 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-12 md:mt-16 lg:gap-y-12 lg:gap-x-8">
         {features.map(({ id, icon, feature, description }) => (
           <FeatureCard
             key={id}
