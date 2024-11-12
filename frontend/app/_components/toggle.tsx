@@ -23,11 +23,15 @@ const classes = {
   focus:border-gray-400 focus:shadow-[0_0_0_4px_rgba(157,164,174,0.20)]`,
 };
 
-export default function Toggle({ disabled = false, name, size }: ToggleProps) {
+export default function Toggle({
+  disabled = false,
+  name,
+  size = "md",
+}: ToggleProps) {
   const [checked, setChecked] = useState(false);
 
-  const handleClick = () => {
-    setChecked(!checked);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.checked);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
@@ -54,9 +58,10 @@ export default function Toggle({ disabled = false, name, size }: ToggleProps) {
       <input
         aria-disabled={disabled}
         className="hidden"
+        checked={checked}
         disabled={disabled}
         name={name}
-        onClick={handleClick}
+        onChange={handleChange}
         role="switch"
         type="checkbox"
       />
