@@ -6,13 +6,15 @@ import TextArea from "../_components/text-area";
 
 describe("Text Area", () => {
   it("renders the text area with the correct text", () => {
-    render(<TextArea label="Comment" />);
+    render(<TextArea name="comment" label="Comment" />);
     const el = screen.getByText("Comment");
     expect(el).toBeInTheDocument();
   });
 
   it("on focus, applies the correct focus classes", () => {
-    render(<TextArea label="Comment" placeholder="placeholder" />);
+    render(
+      <TextArea name="comment" label="Comment" placeholder="placeholder" />,
+    );
     const el = screen.getByPlaceholderText("placeholder");
     el.focus();
     expect(el).toHaveClass("focus:ring-indigo-200 focus:border-indigo-600");
@@ -20,7 +22,12 @@ describe("Text Area", () => {
 
   it("on focus with error, applies the correct focus error classes", () => {
     render(
-      <TextArea label="Comment" placeholder="placeholder" error="error" />,
+      <TextArea
+        name="comment"
+        label="Comment"
+        placeholder="placeholder"
+        error="error"
+      />,
     );
     const el = screen.getByPlaceholderText("placeholder");
     el.focus();
@@ -31,7 +38,12 @@ describe("Text Area", () => {
   it("if disabled, cannot be focused", async () => {
     const user = userEvent.setup();
     render(
-      <TextArea label="Comment" placeholder="placeholder" isDisabled={true} />,
+      <TextArea
+        name="comment"
+        label="Comment"
+        placeholder="placeholder"
+        isDisabled={true}
+      />,
     );
     const el = screen.getByPlaceholderText("placeholder");
     await user.click(el);
@@ -39,7 +51,7 @@ describe("Text Area", () => {
   });
 
   it("has no accessibility violations", async () => {
-    const { container } = render(<TextArea label="Comment" />);
+    const { container } = render(<TextArea name="comment" label="Comment" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

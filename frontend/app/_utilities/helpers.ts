@@ -1,3 +1,9 @@
+export const generateIds = (arr: string[], type: string) => {
+  return arr.map((el) => {
+    return `${el.toLowerCase().replaceAll(" ", "_")}_${type}`;
+  });
+};
+
 export const makeLink = (title: string): string => {
   return title.toLowerCase().replaceAll(" ", "-");
 };
