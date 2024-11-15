@@ -5,18 +5,30 @@ import { v4 as uuidv4 } from "uuid";
 
 type TabMenuProps = {
   tabs: string[];
+  tabStyle: "underline" | "button";
   panels: string[];
 };
 
-const classes = {
-  default:
-    "relative top-[2px] flex justify-center items-center font-medium pb-3 px-2 border-b-2 hover:text-indigo-600 hover:border-b-indigo-600 focus:outline-none",
-  selected:
-    "border-b-indigo-600 text-indigo-600 hover:text-indigo-800 hover:border-b-indigo-800 focus:ring focus:text-indigo-800 focus:border-b-indigo-800",
-  idle: "text-neutral-600 border-b-gray-300 focus:text-neutral-900 focus:border-b-neutral-900",
+const tabClasses = {
+  base: "relative top-[2px] flex justify-center items-center font-medium focus:outline-none focus:ring focus:rounded",
+  button: {
+    base: "border py-2.5 px-3.5 rounded",
+    idle: "border-transparent text-neutral-600 hover:bg-neutral-50",
+    selected: "shadow border-neutral-200",
+  },
+  underline: {
+    base: "pb-3 px-2 border-b-2",
+    idle: "text-neutral-600 border-b-gray-300 hover:text-indigo-600 hover:border-b-indigo-600 focus:text-neutral-900 focus:border-b-neutral-900",
+    selected:
+      "border-b-indigo-600 text-indigo-600 hover:text-indigo-800 hover:border-b-indigo-800 focus:text-indigo-800 focus:border-b-indigo-800",
+  },
 };
 
-export default function TabMenu({ tabs, panels }: TabMenuProps) {
+export default function TabMenu({
+  tabs,
+  panels,
+  tabStyle = "button",
+}: TabMenuProps) {
   const tabIds = generateIds(tabs, "tab");
   const panelIds = generateIds(tabs, "panel");
   const [selected, setSelected] = useState(tabIds[0]);
@@ -48,14 +60,17 @@ export default function TabMenu({ tabs, panels }: TabMenuProps) {
 
   return (
     <div role="tablist" aria-label="tab menu" className="flex flex-col gap-y-6">
-      <div className="flex w-max gap-x-6 border-b-2 border-b-gray-300">
+      <div
+        className={` flex w-max ${tabStyle === "underline" ? "gap-x-6 border-b-2 border-b-gray-300" : "gap-x-4"}`}
+      >
         {tabs.map((tab, idx) => (
           <button
             aria-controls={panelIds[idx]}
             aria-selected={selected === tabIds[idx]}
             className={`
-              ${classes.default} 
-              ${selected === tabIds[idx] ? classes.selected : classes.idle}
+              ${tabClasses.base} 
+              ${tabClasses[tabStyle].base} 
+              ${selected === tabIds[idx] ? tabClasses[tabStyle].selected : tabClasses[tabStyle].idle}
             `}
             onClick={(e) => handleClick(e, tabIds[idx])}
             onKeyDown={(e) => handleKeyDown(e, idx)}
