@@ -3,7 +3,7 @@ import HeroSection from "../_components/hero-section";
 import heroSimple from "../../public/hero-simple.png";
 
 export const metadata: Metadata = {
-  title: "Hero Section | UI Component Library | Jason Long",
+  title: "Hero Section | Abstractly",
 };
 export default function HeroSectionPage() {
   return (

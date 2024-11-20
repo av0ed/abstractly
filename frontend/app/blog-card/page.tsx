@@ -3,7 +3,7 @@ import BlogCard from "../_components/blog-card";
 import blogCard from "../../public/blog-card.png";
 
 export const metadata: Metadata = {
-  title: "Blog Card | UI Component Library | Jason Long",
+  title: "Blog Card | Abstractly",
 };
 export default function BlogCardPage() {
   return (

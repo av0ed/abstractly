@@ -11,8 +11,9 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "UI Component Library | Jason Long",
-  description: "UI Component Library built from GreatFrontEnd challenges.",
+  title: "Welcome | Abstractly",
+  description:
+    "Abstractly - mock marketing website and user interface component library",
 };
 
 export default function RootLayout({

@@ -3,7 +3,7 @@ import TextInput from "../_components/text-input";
 import { RiMailLine, RiQuestionLine } from "@remixicon/react";
 
 export const metadata: Metadata = {
-  title: "Text Input | UI Component Library | Jason Long",
+  title: "Text Input | Abstractly",
 };
 
 export default function TextInputPage() {

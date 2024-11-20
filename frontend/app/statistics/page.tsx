@@ -21,7 +21,7 @@ const statistics = [
 ];
 
 export const metadata: Metadata = {
-  title: "Statistics  | UI Component Library | Jason Long",
+  title: "Statistics  | Abstractly",
 };
 
 export default function StatisticsPage() {

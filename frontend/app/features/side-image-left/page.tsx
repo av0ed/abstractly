@@ -26,7 +26,7 @@ const features = [
 ];
 
 export const metadata: Metadata = {
-  title: "Features Side Image Left | UI Component Library | Jason Long",
+  title: "Features Side Image Left | Abstractly",
 };
 
 export default function FeaturesSideImageLeftPage() {

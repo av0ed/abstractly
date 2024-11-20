@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Footer from "../_components/footer";
 
 export const metadata: Metadata = {
-  title: "Footer | UI Component Library | Jason Long",
+  title: "Footer | Abstractly",
 };
 export default function FooterPage() {
   return (
