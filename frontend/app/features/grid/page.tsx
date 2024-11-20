@@ -55,7 +55,7 @@ paintings or prints on paper).`,
 ];
 
 export const metadata: Metadata = {
-  title: "Features Grid | UI Component Library | Jason Long",
+  title: "Features Grid | Abstractly",
 };
 
 export default function FeaturesGridPage() {

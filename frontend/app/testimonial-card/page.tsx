@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import TestimonialCard from "../_components/testimonial-card";
 
 export const metadata: Metadata = {
-  title: "Testimonial Card | UI Component Library | Jason Long",
+  title: "Testimonial Card | Abstractly",
 };
 export default function TestimonialCardPage() {
   return (

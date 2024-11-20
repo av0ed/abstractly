@@ -12,7 +12,7 @@ const checklist = [
 ];
 
 export const metadata: Metadata = {
-  title: "Pricing | UI Component Library | Jason Long",
+  title: "Pricing | Abstractly",
 };
 
 export default function PricingPage() {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ModalDialog from "../_components/modal-dialog";
 
 export const metadata: Metadata = {
-  title: "Modal Dialog Component | Jason Long",
+  title: "Modal Dialog | Abstractly",
 };
 
 export default function ModalDialogPage() {

@@ -7,7 +7,7 @@ import farias from "../../public/farias.png";
 import sarah from "../../public/sarah.png";
 
 export const metadata: Metadata = {
-  title: "Team | UI Component Library | Jason Long",
+  title: "Team | Abstractly",
 };
 export default function TeamPage() {
   return (

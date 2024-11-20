@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Toast, { ToastType } from "../_components/toast";
 
 export const metadata: Metadata = {
-  title: "Toast | UI Component Library | Jason Long",
+  title: "Toast | Abstractly",
 };
 
 const textContent: Record<ToastType, string> = {

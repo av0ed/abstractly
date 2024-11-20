@@ -9,7 +9,7 @@ import {
 } from "@remixicon/react";
 
 export const metadata: Metadata = {
-  title: "Profile Card | UI Component Library | Jason Long",
+  title: "Profile Card | Abstractly",
 };
 
 export default function ProfileCardPage() {

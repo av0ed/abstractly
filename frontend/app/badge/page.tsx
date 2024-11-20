@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Badge from "../_components/badge";
 
 export const metadata: Metadata = {
-  title: "Badge | UI Component Library | Jason Long",
+  title: "Badge | Abstractly",
 };
 
 export default function BadgePage() {

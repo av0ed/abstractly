@@ -11,7 +11,7 @@ const buttonVariants = [
 ];
 
 export const metadata: Metadata = {
-  title: "Button | UI Component Library | Jason Long",
+  title: "Button | Abstractly",
 };
 
 export default function ButtonPage() {

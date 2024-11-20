@@ -22,7 +22,7 @@ const makeDisabledButtonVariants = [
 ];
 
 export const metadata: Metadata = {
-  title: "Icon Button | UI Component Library | Jason Long",
+  title: "Icon Button | Abstractly",
 };
 
 export default function IconButtonPage() {
