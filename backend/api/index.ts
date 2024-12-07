@@ -15,6 +15,8 @@ app.use(cors());
 app.use("/api", subscriberRoutes);
 app.use("/api", contactRoutes);
 
+app.get("/", (_, res) => res.send("Express on Vercel"));
+
 const options = {
   key: fs.readFileSync(
     path.resolve(__dirname, "../certificates/selfsigned.key"),
