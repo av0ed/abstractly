@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
+import { Pool } from "pg";
 //import fs from "fs";
 //import path from "path";
 //import https from "https";
 //import { Sequelize } from "sequelize";
-import { Pool } from "pg";
 //import subscriberRoutes from "./routes/subscriber.routes";
 //import contactRoutes from "./routes/contact.routes";
 
