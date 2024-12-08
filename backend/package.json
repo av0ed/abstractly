@@ -1,11 +1,9 @@
 {
   "name": "abstractly-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "build": "tsc",
-    "dev": "ts-node-dev api/index.ts",
-    "start": "node dist/index.js"
+    "start": "node --import=tsx api/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -27,8 +25,7 @@
     "@types/node": "^22.5.5",
     "@types/pg": "^8.11.10",
     "@types/sequelize": "^4.28.20",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.2"
   }
 }
