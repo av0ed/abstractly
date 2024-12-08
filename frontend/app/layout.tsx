@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Noto_Sans } from "next/font/google";
 import Navbar from "./_components/navbar";
 import Footer from "./_components/footer";
@@ -32,6 +33,7 @@ export default function RootLayout({
           <div className="h-full w-full bg-white rounded-lg">
             <div className="flex flex-col flex-nowrap justify-start items-center  mx-auto py-12 px-4 md:py-16 lg:py-24 lg:px-28 max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg">
               {children}
+              <SpeedInsights />
             </div>
           </div>
         </main>
